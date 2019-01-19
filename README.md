@@ -28,6 +28,11 @@ import serial
 
 # 모터 제어를 위한 아두이노와의 통신을 위해 사용
 ser = serial.Serial('COM10', 9600)
+   # 1 : Forward
+   # 2 : Left
+   # 3 : Right
+   # 4 : Backward
+
 
 # multiple cascades: https://github.com/Itseez/opencv/tree/master/data/haarcascades
 # https://github.com/Itseez/opencv/blob/master/data/haarcascades/haarcascade_frontalface_default.xml
@@ -59,19 +64,25 @@ while True:
         # 검출된 body를 Boxing
         cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
         
-        if x+w > ((width/4)*3):
-            ser.write(str(3));
-        elif x < width/4:
-            ser.write(str(2));
+        if x+w > ((width/4)*3): # Object의 오른쪽 위치가 화면 영상의 3/4 보다 크면: 오른쪽으로 치우쳐 있으면
+            ser.write(str(3));  # RIGHT -> 오른쪽으로 움직여라!
+        elif x < width/4:       # Object의 왼쪽 위치가 화면 영상의 1/4보다 작으면: 왼쪽으로 치우쳐 있으면
+            ser.write(str(2));  # LEFT  -> 왼쪽으로 움직여라!
 
-        if h < prevHeight:
-            ser.write(str(1));
+        if h < prevHeight:  # Object의 높이가 작으면
+            ser.write(str(1));  # FORWARD : 앞으로 가라!
             prevHeight = h
-        if h < 250:
-            ser.write(str(1));
-            
-        roi_gray = gray[y:y+h, x:x+w]
-        roi_color = img[y:y+h, x:x+w]
+        if h < 250:         # Object의 높이가 250보다 작으면
+            ser.write(str(1));  # FORWARD : 앞으로 가라!
+        
+        # 추가해야할 사항: Object의 높이가 너무 크다면 뒤로 가라!
+        # if h > 지정된 최대 크기:
+        #     ser.write(str(4));  # BACKWARD : 로 가라!
+        
+        # Boxing된 object
+        추출하기
+        # roi_gray = gray[y:y+h, x:x+w]
+        # roi_color = img[y:y+h, x:x+w]
 
     cv2.imshow('img',img)
     k = cv2.waitKey(30) & 0xff
