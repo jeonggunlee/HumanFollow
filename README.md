@@ -8,8 +8,8 @@ Arduino Uno
 
 * File Structure
    - README.md : 지금 보고 있는 화일이다. 프로젝트에 대한 설명이 기술되어 있다.
-   - Test Car.py: 
+   - Test Car.py: 자동차에 제어 신호 전달하는 부분에 대한 간단한 Test
    - arduino_code.ino: 라즈베리파이 보드로 부터 받은 제어 신호에 따라 모터를 제어하여 물체를 따라갈 수 있게 한다.
-   - car_v1.py:
+   - car_v1.py: 메인 코드
    - haarcascade_fullbody.xml: 물체 인식에 사용되는 머신러닝 모델 화일
    
