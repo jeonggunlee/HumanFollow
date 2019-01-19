@@ -1,5 +1,5 @@
-# Object-Following-Car-Image-Prcessing
-An object following 4WD robot.
+# Human Object Following Car Image Prcessing
+An (human) object following 4WD robot/car.
 
 * **Software**:
    - Python 
@@ -93,3 +93,5 @@ cap.release()
 cv2.destroyAllWindows()
 ```
 
+  물론 초음파 센서를 활용하여 유사한 구현을 쉽게 구성할 수 있다.
+  
